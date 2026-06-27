@@ -243,7 +243,7 @@ body {
 .stat-card {
   min-height: 120px;
   padding: 24px 18px;
-  border: 1px solid var(--glass-border);
+  border: 3px solid var(--secondary);
   border-radius: 18px;
   background: var(--glass);
   backdrop-filter: blur(18px);
