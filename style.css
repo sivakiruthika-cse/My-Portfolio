@@ -1269,15 +1269,19 @@ body {
 
     background: #ff8c00;
 
-    color:inherit;
+    color:#130c0c;
 
-    font-size:16px;
+    border-color: #ff8c00;
+
+    font-size:18px;
 
     text-decoration:none;
 
     cursor:pointer;
 
     transition:.3s;
+
+    font-weight: bold;
 
 }
 
@@ -1515,11 +1519,13 @@ body {
 
     background:#ff8c00;
 
-    color:#ffffff;
+    color:#130c0c;
+
+    border-color: #ff8c00;
 
     text-decoration:none;
 
-    font-size:16px;
+    font-size:18px;
 
     font-weight:600;
 
@@ -1536,5 +1542,41 @@ body {
     transform:translateY(-3px);
 
     box-shadow:0 0 20px rgba(255,140,0,.35);
+
+}
+
+.view-resume-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.view-resume-btn {
+    display: inline-block;
+    background: #ff8c00;
+    color: #130c0c;
+    border-color: #ff8c00;
+    padding: 14px 38px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 140, 0, 0.35);
+}
+
+.view-resume-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255, 140, 0, 0.45);
+}
+
+.view-resume-btn:hover {
+
+
+    background: #ff8c00 ;
+
+
+    color:white;
+
 
 }
