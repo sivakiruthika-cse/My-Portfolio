@@ -442,26 +442,31 @@
 
       <form class="contact-form">
 
-        <label>NAME</label>
-        <input
-          type="text"
-          placeholder="Your Name"
-        >
+  <label>NAME</label>
+  <input
+    type="text"
+    id="name"
+    placeholder="Your Name"
+  >
 
-        <label>EMAIL</label>
-        <input
-          type="email"
-          placeholder="yourmail@example.com"
-        >
+  <label>EMAIL</label>
+  <input
+    type="email"
+    id="email"
+    placeholder="yourmail@example.com"
+  >
 
-        <label>MESSAGE</label>
-        <textarea
-          placeholder="Tell me about your project..."
-        ></textarea>
+  <label>MESSAGE</label>
+  <textarea
+    id="message"
+    placeholder="Tell me about your project..."
+  ></textarea>
 
-        <button onclick="sendMail()">Send Message</button>
+  <button type="button" onclick="sendMail()">
+    Send Message
+  </button>
 
-      </form>
+</form>
 
     </div>
 
