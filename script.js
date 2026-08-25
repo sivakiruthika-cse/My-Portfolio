@@ -9,6 +9,7 @@ let stars = [];
 let points = [];
 let rotation = 0;
 let targetState = "home";
+
 let current = {
   x: 0,
   y: 0,
@@ -27,6 +28,7 @@ const states = {
     line: 0.28,
     alpha: 1
   },
+
   about: {
     x: 160,
     y: 10,
@@ -35,6 +37,7 @@ const states = {
     line: 0.36,
     alpha: 1
   },
+
   skills: {
     x: 260,
     y: -40,
@@ -43,6 +46,7 @@ const states = {
     line: 0.72,
     alpha: 1
   },
+
   projects: {
     x: 40,
     y: 20,
@@ -51,6 +55,7 @@ const states = {
     line: 0.62,
     alpha: 1
   },
+
   education: {
     x: -220,
     y: 40,
@@ -59,6 +64,7 @@ const states = {
     line: 0.48,
     alpha: 0.86
   },
+
   certificates: {
     x: 220,
     y: -20,
@@ -67,6 +73,7 @@ const states = {
     line: 0.3,
     alpha: 0.55
   },
+
   contact: {
     x: 360,
     y: -80,
@@ -82,15 +89,18 @@ function resizeCanvas() {
 
   width = window.innerWidth;
   height = window.innerHeight;
+
   cx = width / 2;
   cy = height / 2;
 
   canvas.width = width * ratio;
   canvas.height = height * ratio;
+
   canvas.style.width = `${width}px`;
   canvas.style.height = `${height}px`;
 
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
   createStars();
   createShape();
 }
@@ -107,11 +117,16 @@ function createStars() {
 
 function createShape() {
   points = [];
+
   const count = 42;
 
   for (let i = 0; i < count; i += 1) {
     const angle = (i / count) * Math.PI * 2;
-    const radius = 185 + Math.sin(i * 2.3) * 46 + Math.random() * 22;
+
+    const radius =
+      185 +
+      Math.sin(i * 2.3) * 46 +
+      Math.random() * 22;
 
     points.push({
       angle,
@@ -124,12 +139,16 @@ function createShape() {
 
 function getActiveSection() {
   const sections = document.querySelectorAll(".section-panel");
+
   let active = "home";
 
   sections.forEach((section) => {
     const rect = section.getBoundingClientRect();
 
-    if (rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.35) {
+    if (
+      rect.top < window.innerHeight * 0.5 &&
+      rect.bottom > window.innerHeight * 0.35
+    ) {
       active = section.id;
     }
   });
@@ -162,10 +181,20 @@ function drawStars() {
     }
 
     ctx.beginPath();
+
     ctx.fillStyle = `rgba(248, 250, 252, ${star.glow})`;
+
     ctx.shadowColor = "rgba(34, 211, 238, 0.55)";
     ctx.shadowBlur = 10;
-    ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+
+    ctx.arc(
+      star.x,
+      star.y,
+      star.r,
+      0,
+      Math.PI * 2
+    );
+
     ctx.fill();
   });
 
@@ -173,15 +202,37 @@ function drawStars() {
 }
 
 function projectPoint(point, index) {
-  const wave = Math.sin(rotation * 1.8 + point.offset) * 28;
+  const wave =
+    Math.sin(rotation * 1.8 + point.offset) * 28;
+
   const angle = point.angle + rotation;
-  const depth = 520 + point.z + Math.cos(rotation + index) * 80;
+
+  const depth =
+    520 +
+    point.z +
+    Math.cos(rotation + index) * 80;
+
   const perspective = 520 / depth;
-  const radius = (point.radius + wave) * current.scale;
+
+  const radius =
+    (point.radius + wave) * current.scale;
 
   return {
-    x: cx + current.x + Math.cos(angle) * radius * perspective,
-    y: cy + current.y + Math.sin(angle) * radius * perspective * 0.82,
+    x:
+      cx +
+      current.x +
+      Math.cos(angle) *
+        radius *
+        perspective,
+
+    y:
+      cy +
+      current.y +
+      Math.sin(angle) *
+        radius *
+        perspective *
+        0.82,
+
     perspective
   };
 }
@@ -190,6 +241,7 @@ function drawShape() {
   const projected = points.map(projectPoint);
 
   ctx.save();
+
   ctx.globalAlpha = current.alpha;
 
   if (current.fill > 0.01) {
@@ -214,27 +266,61 @@ function drawShape() {
       380 * current.scale
     );
 
-    gradient.addColorStop(0, `rgba(34, 211, 238, ${current.fill})`);
-    gradient.addColorStop(0.4, `rgba(99, 102, 241, ${current.fill * 0.9})`);
-    gradient.addColorStop(1, `rgba(6, 59, 109, ${current.fill * 0.45})`);
+    gradient.addColorStop(
+      0,
+      `rgba(34, 211, 238, ${current.fill})`
+    );
+
+    gradient.addColorStop(
+      0.4,
+      `rgba(99, 102, 241, ${current.fill * 0.9})`
+    );
+
+    gradient.addColorStop(
+      1,
+      `rgba(6, 59, 109, ${current.fill * 0.45})`
+    );
 
     ctx.fillStyle = gradient;
+
     ctx.fill();
   }
 
   for (let i = 0; i < projected.length; i += 1) {
     for (let j = i + 1; j < projected.length; j += 1) {
-      const dx = projected[i].x - projected[j].x;
-      const dy = projected[i].y - projected[j].y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+      const dx =
+        projected[i].x -
+        projected[j].x;
+
+      const dy =
+        projected[i].y -
+        projected[j].y;
+
+      const distance =
+        Math.sqrt(dx * dx + dy * dy);
 
       if (distance < 210) {
-        const opacity = (1 - distance / 210) * current.line;
+        const opacity =
+          (1 - distance / 210) *
+          current.line;
+
         ctx.beginPath();
-        ctx.strokeStyle = `rgba(248, 250, 252, ${opacity})`;
+
+        ctx.strokeStyle =
+          `rgba(248, 250, 252, ${opacity})`;
+
         ctx.lineWidth = 1;
-        ctx.moveTo(projected[i].x, projected[i].y);
-        ctx.lineTo(projected[j].x, projected[j].y);
+
+        ctx.moveTo(
+          projected[i].x,
+          projected[i].y
+        );
+
+        ctx.lineTo(
+          projected[j].x,
+          projected[j].y
+        );
+
         ctx.stroke();
       }
     }
@@ -242,59 +328,143 @@ function drawShape() {
 
   projected.forEach((point) => {
     ctx.beginPath();
-    ctx.fillStyle = `rgba(34, 211, 238, ${0.34 * current.alpha})`;
-    ctx.shadowColor = "rgba(34, 211, 238, 0.75)";
+
+    ctx.fillStyle =
+      `rgba(34, 211, 238, ${0.34 * current.alpha})`;
+
+    ctx.shadowColor =
+      "rgba(34, 211, 238, 0.75)";
+
     ctx.shadowBlur = 12;
-    ctx.arc(point.x, point.y, 2.2, 0, Math.PI * 2);
+
+    ctx.arc(
+      point.x,
+      point.y,
+      2.2,
+      0,
+      Math.PI * 2
+    );
+
     ctx.fill();
   });
 
   ctx.restore();
+
   ctx.shadowBlur = 0;
 }
 
 function animate() {
-  ctx.clearRect(0, 0, width, height);
+  ctx.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
 
   getActiveSection();
+
   updateCurrentState();
 
   rotation += 0.0028;
 
   drawStars();
+
   drawShape();
 
   requestAnimationFrame(animate);
 }
 
-window.addEventListener("resize", resizeCanvas);
+window.addEventListener(
+  "resize",
+  resizeCanvas
+);
 
 resizeCanvas();
+
 animate();
+
+
+// ========================================
+// EMAILJS
+// ========================================
 
 // Initialize EmailJS
 emailjs.init("zDq7v47in6kvAajLZ");
 
-function sendMail() {
 
-  let params = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    message: document.getElementById("message").value
+// Send contact form
+function sendMail(event) {
+
+  // Prevent page refresh
+  if (event) {
+    event.preventDefault();
+  }
+
+  // Get form elements
+  const name = document.getElementById("name");
+  const email = document.getElementById("email");
+  const message = document.getElementById("message");
+  const form = document.getElementById("contact-form");
+
+  // Check if elements exist
+  if (!name || !email || !message || !form) {
+    console.error("Contact form elements not found.");
+    alert("Contact form error. Please check your HTML IDs.");
+    return;
+  }
+
+  // Get values
+  const params = {
+    name: name.value.trim(),
+    email: email.value.trim(),
+    message: message.value.trim()
   };
 
-  emailjs.send("service_3u40htv", "template-4u9gfhq", params)
 
-    .then(function(response) {
+  // Basic validation
+  if (
+    params.name === "" ||
+    params.email === "" ||
+    params.message === ""
+  ) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+
+  // Send email using EmailJS
+  emailjs
+    .send(
+      "service_3u40htv",
+      "template_4u9gfhq",
+      params
+    )
+
+    .then(function (response) {
+
+      console.log(
+        "EmailJS SUCCESS:",
+        response.status,
+        response.text
+      );
+
       alert("Message sent successfully!");
 
-      // Clear the form after successful sending
-      document.getElementById("contact-form").reset();
+      // Clear form
+      form.reset();
+
     })
 
-    .catch(function(error) {
-      alert("Failed to send message!");
-      console.log(error);
-    });
+    .catch(function (error) {
 
+      console.error(
+        "EmailJS ERROR:",
+        error
+      );
+
+      alert(
+        "Failed to send message. Please try again."
+      );
+
+    });
 }
