@@ -284,12 +284,17 @@ function sendMail() {
   };
 
   emailjs.send("service_3u40htv", "template-4u9gfhq", params)
-  .then(function(response) {
+
+    .then(function(response) {
       alert("Message sent successfully!");
-      console.log(response);
-  }, function(error) {
+
+      // Clear the form after successful sending
+      document.getElementById("contact-form").reset();
+    })
+
+    .catch(function(error) {
       alert("Failed to send message!");
       console.log(error);
-  });
+    });
 
 }
