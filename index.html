@@ -441,27 +441,30 @@
 
       <h1>Contact</h1>
 
-      <form class="contact-form">
+      <form class="contact-form" id="contact-form">
 
   <label>NAME</label>
   <input
-    type="text"
-    id="name"
-    placeholder="Your Name"
-  >
+  type="text"
+  id="name"
+  name="name"
+  placeholder="Your Name"
+>
 
   <label>EMAIL</label>
   <input
-    type="email"
-    id="email"
-    placeholder="yourmail@example.com"
-  >
+  type="email"
+  id="email"
+  name="email"
+  placeholder="yourmail@example.com"
+>
 
   <label>MESSAGE</label>
   <textarea
-    id="message"
-    placeholder="Tell me about your project..."
-  ></textarea>
+  id="message"
+  name="message"
+  placeholder="Tell me about your project..."
+></textarea>
 
   <button type="button" onclick="sendMail()">
     Send Message
